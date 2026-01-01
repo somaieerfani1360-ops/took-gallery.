@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools Gallery | فروشگاه آنلاین</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- حاشیه صورتی دور سایت -->
+    <div class="border-top"></div>
+    <div class="border-right"></div>
+    <div class="border-bottom"></div>
+    <div class="border-left"></div>
+
+    <!-- نوار اطلاعات بالایی -->
+    <div class="info-bar">
+        <div class="container">
+            <span class="free-shipping">🚚 ارسال رایگان برای خریدهای بالای ۲۰۰ هزار تومان</span>
+            <span class="support-number">📞 پشتیبانی: ۹۱۲۲۳۴۵۶۷</span>
+        </div>
+    </div>
+
+    <!-- هدر اصلی -->
+    <header class="main-header">
+        <div class="container">
+            <!-- منو همبرگر -->
+            <button class="hamburger-btn" id="hamburgerBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- لوگو -->
+            <div class="logo">
+                <h1><i class="fas fa-shopping-bag"></i> Tools Gallery</h1>
+            </div>
+
+            <!-- جستجوی پیشرفته -->
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" placeholder="🔍 جستجوی محصولات..." id="searchInput">
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="search-filters">
+                    <select class="filter-select">
+                        <option>همه دسته‌بندی‌ها</option>
+                        <option>پوشاک</option>
+                        <option>الکترونیک</option>
+                        <option>لوازم آرایشی</option>
+                        <option>خانه و آشپزخانه</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>مرتب‌سازی</option>
+                        <option>ارزان‌ترین</option>
+                        <option>گران‌ترین</option>
+                        <option>پرفروش‌ترین</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- منو کاربر -->
+            <div class="user-menu">
+                <a href="profile.html" class="user-icon" title="پروفایل">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="wishlist.html" class="user-icon" title="علاقه‌مندی‌ها">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge">۳</span>
+                </a>
+                <a href="cart.html" class="user-icon" title="سبد خرید">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge">۲</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- منو موبایل -->
+    <nav class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <h3><i class="fas fa-bars"></i> منو</h3>
+            <button class="close-nav" id="closeNavBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="mobile-nav-list">
+            <li><a href="index.html" class="active"><i class="fas fa-home"></i> صفحه اصلی</a></li>
+            <li><a href="#categories"><i class="fas fa-th-large"></i> دسته‌بندی‌ها</a></li>
+            <li><a href="#special-offer"><i class="fas fa-fire"></i> فروش ویژه</a></li>
+            <li><a href="#new-products"><i class="fas fa-newspaper"></i> محصولات جدید</a></li>
+            <li><a href="profile.html"><i class="fas fa-user"></i> پروفایل</a></li>
+            <li><a href="wishlist.html"><i class="fas fa-heart"></i> علاقه‌مندی‌ها</a></li>
+            <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> سبد خرید</a></li>
+            <li><a href="support.html"><i class="fas fa-headset"></i> پشتیبانی</a></li>
+        </ul>
+    </nav>
+
+    <!-- دسته‌بندی محصولات (مثل عکس) -->
+    <section class="categories-section" id="categories">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-th-large"></i> دسته‌بندی محصولات</h2>
+            <div class="categories-grid">
+                <!-- دسته ۱ -->
+                <div class="category-card" onclick="window.location.href='category.html?cat=clothing'">
+                    <div class="category-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3>پوشاک</h3>
+                    <p class="product-count">۱۵ محصول</p>
+                    <div class="category-overlay">
+                        <button class="view-btn">مشاهده محصولات</button>
+                    </div>
+                </div>
+
+                <!-- دسته ۲ -->
+                <div class="category-card" onclick="window.location.href='category.html?cat=electronics'">
+                    <div class="category-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3>الکترونیک</h3>
+                    <p class="product-count">۲۰ محصول</p>
+                    <div class="category-overlay">
+                        <button class="view-btn">مشاهده محصولات</button>
+                    </div>
+                </div>
+
+                <!-- دسته ۳ -->
+                <div class="category-card" onclick="window.location.href='category.html?cat=cosmetics'">
+                    <div class="category-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>لوازم آرایشی</h3>
+                    <p class="product-count">۱۸ محصول</p>
+                    <div class="category-overlay">
+                        <button class="view-btn">مشاهده محصولات</button>
+                    </div>
+                </div>
+
+                <!-- دسته ۴ -->
+                <div class="category-card" onclick="window.location.href='category.html?cat=home'">
+                    <div class="category-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>خانه و آشپزخانه</h3>
+                    <p class="product-count">۲۵ محصول</p>
+                    <div class="category-overlay">
+                        <button class="view-btn">مشاهده محصولات</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- فروش شگفت‌انگیز با اسلایدر حرفه‌ای -->
+    <section class="special-offer-section" id="special-offer">
+        <div class="container">
+            <div class="offer-header">
+                <h2 class="section-title"><i class="fas fa-fire"></i> فروش شگفت‌انگیز</h2>
+                <div class="offer-timer" id="offerTimer">
+                    <div class="timer-box">
+                        <span id="hours">۲۳</span>
+                        <span class="timer-label">ساعت</span>
+                    </div>
+                    <div class="timer-separator">:</div>
+                    <div class="timer-box">
+                        <span id="minutes">۵۶</span>
+                        <span class="timer-label">دقیقه</span>
+                    </div>
+                    <div class="timer-separator">:</div>
+                    <div class="timer-box">
+                        <span id="seconds">۱۶</span>
+                        <span class="timer-label">ثانیه</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- اسلایدر پیشرفته -->
+            <div class="slider-container">
+                <button class="slider-btn prev-btn" id="prevBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                
+                <div class="slider-wrapper">
+                    <div class="products-slider" id="productsSlider">
+                        <!-- محصول ۱ -->
+                        <div class="product-slide">
+                            <div class="product-tag">🔥 ۴۰٪ تخفیف</div>
+                            <div class="product-image">
+                                <div class="image-placeholder">تصویر محصول ۱</div>
+                            </div>
+                            <div class="product-info">
+                                <h3>محصول شگفت‌انگیز ۱</h3>
+                                <div class="price-container">
+                                    <span class="old-price">۲۳۰,۰۰۰ تومان</span>
+                                    <span class="current-price">۱۳۹,۰۰۰ تومان</span>
+                                </div>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(۴۵)</span>
+                                </div>
+                                <div class="product-actions">
+                                    <button class="add-to-cart" onclick="addToCart(1)">
+                                        <i class="fas fa-cart-plus"></i> افزودن
+                                    </button>
+                                    <button class="quick-view" onclick="viewProduct(1)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- محصول ۲ -->
+                        <div class="product-slide">
+                            <div class="product-tag">🔥 ۳۵٪ تخفیف</div>
+                            <div class="product-image">
+                                <div class="image-placeholder">تصویر محصول ۲</div>
+                            </div>
+                            <div class="product-info">
+                                <h3>محصول شگفت‌انگیز ۲</h3>
+                                <div class="price-container">
+                                    <span class="old-price">۱۸۰,۰۰۰ تومان</span>
+                                    <span class="current-price">۱۱۷,۰۰۰ تومان</span>
+                                </div>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(۳۲)</span>
+                                </div>
+                                <div class="product-actions">
+                                    <button class="add-to-cart" onclick="addToCart(2)">
+                                        <i class="fas fa-cart-plus"></i> افزودن
+                                    </button>
+                                    <button class="quick-view" onclick="viewProduct(2)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- محصول ۳ -->
+                        <div class="product-slide">
+                            <div class="product-tag">🔥 ۵۰٪ تخفیف</div>
+                            <div class="product-image">
+                                <div class="image-placeholder">تصویر محصول ۳</div>
+                            </div>
+                            <div class="product-info">
+                                <h3>محصول شگفت‌انگیز ۳</h3>
+                                <div class="price-container">
+                                    <span class="old-price">۳۲۰,۰۰۰ تومان</span>
+                                    <span class="current-price">۱۶۰,۰۰۰ تومان</span>
+                                </div>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span>(۶۷)</span>
+                                </div>
+                                <div class="product-actions">
+                                    <button class="add-to-cart" onclick="addToCart(3)">
+                                        <i class="fas fa-cart-plus"></i> افزودن
+                                    </button>
+                                    <button class="quick-view" onclick="viewProduct(3)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- محصول ۴ -->
+                        <div class="product-slide">
+                            <div class="product-tag">🔥 ۲۵٪ تخفیف</div>
+                            <div class="product-image">
+                                <div class="image-placeholder">تصویر محصول ۴</div>
+                            </div>
+                            <div class="product-info">
+                                <h3>محصول شگفت‌انگیز ۴</h3>
+                                <div class="price-container">
+                                    <span class="old-price">۲۴۰,۰۰۰ تومان</span>
+                                    <span class="current-price">۱۸۰,۰۰۰ تومان</span>
+                                </div>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(۲۸)</span>
+                                </div>
+                                <div class="product-actions">
+                                    <button class="add-to-cart" onclick="addToCart(4)">
+                                        <i class="fas fa-cart-plus"></i> افزودن
+                                    </button>
+                                    <button class="quick-view" onclick="viewProduct(4)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- محصول ۵ -->
+                        <div class="product-slide">
+                            <div class="product-tag">🔥 ۴۵٪ تخفیف</div>
+                            <div class="product-image">
+                                <div class="image-placeholder">تصویر محصول ۵</div>
+                            </div>
+                            <div class="product-info">
+                                <h3>محصول شگفت‌انگیز ۵</h3>
+                                <div class="price-container">
+                                    <span class="old-price">۲۹۰,۰۰۰ تومان</span>
+                                    <span class="current-price">۱۵۹,۵۰۰ تومان</span>
+                                </div>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>(۸۹)</span>
+                                </div>
+                                <div class="product-actions">
+                                    <button class="add-to-cart" onclick="addToCart(5)">
+                                        <i class="fas fa-cart-plus"></i> افزودن
+                                    </button>
+                                    <button class="quick-view" onclick="viewProduct(5)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- محصول ۶ -->
+                        <div class="product-slide">
+                            <div class="product-tag">🔥 ۳۰٪ تخفیف</div>
+                            <div class="product-image">
+                                <div class="image-placeholder">تصویر محصول ۶</div>
+                            </div>
+                            <div class="product-info">
+                                <h3>محصول شگفت‌انگیز ۶</h3>
+                                <div class="price-container">
+                                    <span class="old-price">۱۷۰,۰۰۰ تومان</span>
+                                    <span class="current-price">۱۱۹,۰۰۰ تومان</span>
+                                </div>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(۱۷)</span>
+                                </div>
+                                <div class="product-actions">
+                                    <button class="add-to-cart" onclick="addToCart(6)">
+                                        <i class="fas fa-cart-plus"></i> افزودن
+                                    </button>
+                                    <button class="quick-view" onclick="viewProduct(6)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="slider-btn next-btn" id="nextBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- محصولات جدید -->
+    <section class="new-products-section" id="new-products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-newspaper"></i> محصولات جدید</h2>
+                <a href="products.html" class="view-all-link">
+                    مشاهده همه <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+
+            <div class="new-products-grid">
+                <!-- محصول جدید ۱ -->
+                <div class="new-product-card" onclick="window.location.href='product.html?id=1'">
+                    <div class="new-product-image">
+                        <div class="image-placeholder">محصول جدید ۱</div>
+                        <div class="new-badge">جدید</div>
+                    </div>
+                    <div class="new-product-info">
+                        <h3>محصول جدید ۱</h3>
+                        <p class="product-description">توضیحات کوتاه محصول جدید ۱</p>
+                        <div class="new-product-price">۱۴۹,۰۰۰ تومان</div>
+                        <div class="new-product-actions">
+                            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(7)">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                            <button class="add-to-wishlist-btn" onclick="event.stopPropagation(); addToWishlist(7)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- محصول جدید ۲ -->
+                <div class="new-product-card" onclick="window.location.href='product.html?id=2'">
+                    <div class="new-product-image">
+                        <div class="image-placeholder">محصول جدید ۲</div>
+                        <div class="new-badge">جدید</div>
+                    </div>
+                    <div class="new-product-info">
+                        <h3>محصول جدید ۲</h3>
+                        <p class="product-description">توضیحات کوتاه محصول جدید ۲</p>
+                        <div class="new-product-price">۲۱۹,۰۰۰ تومان</div>
+                        <div class="new-product-actions">
+                            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(8)">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                            <button class="add-to-wishlist-btn" onclick="event.stopPropagation(); addToWishlist(8)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- محصول جدید ۳ -->
+                <div class="new-product-card" onclick="window.location.href='product.html?id=3'">
+                    <div class="new-product-image">
+                        <div class="image-placeholder">محصول جدید ۳</div>
+                        <div class="new-badge">جدید</div>
+                    </div>
+                    <div class="new-product-info">
+                        <h3>محصول جدید ۳</h3>
+                        <p class="product-description">توضیحات کوتاه محصول جدید ۳</p>
+                        <div class="new-product-price">۱۷۹,۰۰۰ تومان</div>
+                        <div class="new-product-actions">
+                            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(9)">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                            <button class="add-to-wishlist-btn" onclick="event.stopPropagation(); addToWishlist(9)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- محصول جدید ۴ -->
+                <div class="new-product-card" onclick="window.location.href='product.html?id=4'">
+                    <div class="new-product-image">
+                        <div class="image-placeholder">محصول جدید ۴</div>
+                        <div class="new-badge">جدید</div>
+                    </div>
+                    <div class="new-product-info">
+                        <h3>محصول جدید ۴</h3>
+                        <p class="product-description">توضیحات کوتاه محصول جدید ۴</p>
+                        <div class="new-product-price">۲۴۹,۰۰۰ تومان</div>
+                        <div class="new-product-actions">
+                            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(10)">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                            <button class="add-to-wishlist-btn" onclick="event.stopPropagation(); addToWishlist(10)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- محصول جدید ۵ -->
+                <div class="new-product-card" onclick="window.location.href='product.html?id=5'">
+                    <div class="new-product-image">
+                        <div class="image-placeholder">محصول جدید ۵</div>
+                        <div class="new-badge">جدید</div>
+                    </div>
+                    <div class="new-product-info">
+                        <h3>محصول جدید ۵</h3>
+                        <p class="product-description">توضیحات کوتاه محصول جدید ۵</p>
+                        <div class="new-product-price">۱۹۹,۰۰۰ تومان</div>
+                        <div class="new-product-actions">
+                            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(11)">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                            <button class="add-to-wishlist-btn" onclick="event.stopPropagation(); addToWishlist(11)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- محصول جدید ۶ -->
+                <div class="new-product-card" onclick="window.location.href='product.html?id=6'">
+                    <div class="new-product-image">
+                        <div class="image-placeholder">محصول جدید ۶</div>
+                        <div class="new-badge">جدید</div>
+                    </div>
+                    <div class="new-product-info">
+                        <h3>محصول جدید ۶</h3>
+                        <p class="product-description">توضیحات کوتاه محصول جدید ۶</p>
+                        <div class="new-product-price">۲۷۹,۰۰۰ تومان</div>
+                        <div class="new-product-actions">
+                            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(12)">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                            <button class="add-to-wishlist-btn" onclick="event.stopPropagation(); addToWishlist(12)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- دکمه پشتیبان -->
+    <a href="support.html" class="support-fab">
+        <i class="fas fa-headset"></i>
+        <span class="fab-label">پشتیبانی</span>
+    </a>
+
+    <!-- فوتر -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3><i class="fas fa-shopping-bag"></i> Tools Gallery</h3>
+                    <p>فروشگاه آنلاین با بهترین کیفیت و قیمت</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>دسترسی سریع</h4>
+                    <ul>
+                        <li><a href="index.html">صفحه اصلی</a></li>
+                        <li><a href="#categories">دسته‌بندی‌ها</a></li>
+                        <li><a href="#special-offer">فروش ویژه</a></li>
+                        <li><a href="#new-products">محصولات جدید</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>حساب کاربری</h4>
+                    <ul>
+                        <li><a href="profile.html">پروفایل</a></li>
+                        <li><a href="cart.html">سبد خرید</a></li>
+                        <li><a href="wishlist.html">علاقه‌مندی‌ها</a></li>
+                        <li><a href="orders.html">سفارشات</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>تماس با ما</h4>
+                    <p><i class="fas fa-phone"></i> ۹۱۲۲۳۴۵۶۷</p>
+                    <p><i class="fas fa-envelope"></i> info@toolsgallery.ir</p>
+                    <p><i class="fas fa-map-marker-alt"></i> تهران، خیابان نمونه</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© ۱۴۰۳ کلیه حقوق برای Tools Gallery محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
