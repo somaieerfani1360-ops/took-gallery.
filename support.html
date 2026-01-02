@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پشتیبانی | Tools Gallery</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- حاشیه صورتی -->
+    <div class="border-top"></div>
+    <div class="border-right"></div>
+    <div class="border-bottom"></div>
+    <div class="border-left"></div>
+
+    <div class="container">
+        <!-- هدر پشتیبانی -->
+        <header class="support-header">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-right"></i> بازگشت
+            </a>
+            <h1><i class="fas fa-headset"></i> پشتیبانی آنلاین</h1>
+        </header>
+
+        <!-- محتوای پشتیبانی -->
+        <div class="support-content">
+            <!-- اطلاعات تماس -->
+            <div class="contact-info">
+                <div class="info-card">
+                    <i class="fas fa-phone"></i>
+                    <h3>تماس تلفنی</h3>
+                    <p>۹۱۲۲۳۴۵۶۷</p>
+                    <p>پاسخگویی ۲۴ ساعته</p>
+                </div>
+                
+                <div class="info-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>ایمیل</h3>
+                    <p>support@toolsgallery.ir</p>
+                    <p>پاسخ در کمتر از ۲ ساعت</p>
+                </div>
+                
+                <div class="info-card">
+                    <i class="fas fa-comments"></i>
+                    <h3>چت آنلاین</h3>
+                    <p>آنلاین</p>
+                    <p>پشتیبان در دسترس</p>
+                </div>
+            </div>
+
+            <!-- چت آنلاین -->
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h3><i class="fas fa-comments"></i> چت با پشتیبان</h3>
+                    <div class="admin-login">
+                        <button onclick="openAdminLogin()">
+                            <i class="fas fa-lock"></i> ورود پشتیبان
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <!-- پیام‌ها -->
+                    <div class="message received">
+                        <div class="message-sender">پشتیبان</div>
+                        <div class="message-text">
+                            سلام! به Tools Gallery خوش آمدید. چطور می‌توانم کمک کنم؟
+                        </div>
+                        <div class="message-time">۱۹:۳۰</div>
+                    </div>
+                    
+                    <div class="message sent">
+                        <div class="message-sender">شما</div>
+                        <div class="message-text">
+                            چطور می‌توانم سفارشم را پیگیری کنم؟
+                        </div>
+                        <div class="message-time">۱۹:۳۲</div>
+                    </div>
+                    
+                    <div class="message received">
+                        <div class="message-sender">پشتیبان</div>
+                        <div class="message-text">
+                            لطفاً شماره سفارش خود را ارسال کنید.
+                        </div>
+                        <div class="message-time">۱۹:۳۳</div>
+                    </div>
+                </div>
+                
+                <div class="chat-input">
+                    <input type="text" placeholder="پیام خود را بنویسید..." id="messageInput">
+                    <button onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- سوالات متداول -->
+            <div class="faq-section">
+                <h3><i class="fas fa-question-circle"></i> سوالات متداول</h3>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            چطور سفارشم را پیگیری کنم؟
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            پس از ثبت سفارش، کد رهگیری برای شما ارسال می‌شود. می‌توانید با این کد در بخش پیگیری سفارش، وضعیت سفارش خود را بررسی کنید.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            زمان ارسال چقدر است؟
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            در تهران ۱-۲ روز کاری و در سایر شهرها ۳-۴ روز کاری می‌باشد.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // مدیریت چت
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                const chatMessages = document.getElementById('chatMessages');
+                
+                // اضافه کردن پیام کاربر
+                const userMessage = document.createElement('div');
+                userMessage.className = 'message sent';
+                userMessage.innerHTML = `
+                    <div class="message-sender">شما</div>
+                    <div class="message-text">${message}</div>
+                    <div class="message-time">${new Date().toLocaleTimeString('fa-IR', {hour: '2-digit', minute:'2-digit'})}</div>
+                `;
+                chatMessages.appendChild(userMessage);
+                
+                // پاک کردن فیلد ورودی
+                input.value = '';
+                
+                // اسکرول به پایین
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // شبیه‌سازی پاسخ پشتیبان
+                setTimeout(() => {
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'message received';
+                    botMessage.innerHTML = `
+                        <div class="message-sender">پشتیبان</div>
+                        <div class="message-text">پیام شما دریافت شد. به زودی پاسخ داده می‌شود.</div>
+                        <div class="message-time">${new Date().toLocaleTimeString('fa-IR', {hour: '2-digit', minute:'2-digit'})}</div>
+                    `;
+                    chatMessages.appendChild(botMessage);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+            }
+        }
+        
+        // مدیریت FAQ
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+                question.querySelector('i').classList.toggle('fa-chevron-up');
+                question.querySelector('i').classList.toggle('fa-chevron-down');
+            });
+        });
+        
+        // ورود پشتیبان
+        function openAdminLogin() {
+            const password = prompt('برای ورود به پنل پشتیبان، رمز عبور را وارد کنید:');
+            if (password === 'admin123') {
+                window.open('admin.html', '_blank');
+            } else if (password) {
+                alert('رمز عبور اشتباه است!');
+            }
+        }
+        
+        // ارسال با Enter
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+
+    <style>
+        /* استایل‌های مخصوص پشتیبانی */
+        .support-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 30px 0;
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 30px;
+        }
+        
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary-color);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow-lg);
+        }
+        
+        .info-card i {
+            font-size: 40px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .chat-container {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        
+        .chat-header {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-login button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        
+        .admin-login button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .message {
+            margin-bottom: 20px;
+            max-width: 70%;
+        }
+        
+        .message.received {
+            margin-right: auto;
+        }
+        
+        .message.sent {
+            margin-left: auto;
+        }
+        
+        .message-sender {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .message-text {
+            background: var(--gray-light);
+            padding: 12px 15px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+        
+        .message.sent .message-text {
+            background: var(--secondary-color);
+            color: white;
+        }
+        
+        .message-time {
+            font-size: 12px;
+            color: var(--gray-dark);
+            margin-top: 5px;
+            text-align: left;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 20px;
+            border-top: 1px solid var(--gray);
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid var(--gray);
+            border-radius: 25px;
+            font-size: 16px;
+        }
+        
+        .chat-input button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            width: 50px;
+            margin-right: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .faq-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--gray);
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px 0;
+            font-weight: 500;
+        }
+        
+        .faq-answer {
+            display: none;
+            padding: 15px 0;
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+    </style>
+</body>
+</html>
