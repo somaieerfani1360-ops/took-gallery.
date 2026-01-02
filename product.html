@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محصول نمونه | Tools Gallery</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .product-page {
+            padding: 40px 0;
+            min-height: 70vh;
+        }
+        
+        .breadcrumb {
+            margin-bottom: 30px;
+            padding: 15px;
+            background: var(--gray-light);
+            border-radius: var(--border-radius);
+        }
+        
+        .breadcrumb a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--primary-color);
+        }
+        
+        .breadcrumb span {
+            color: var(--dark-color);
+        }
+        
+        .product-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 992px) {
+            .product-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .product-gallery {
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .main-image {
+            height: 400px;
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-color);
+            font-size: 20px;
+            position: relative;
+        }
+        
+        .image-zoom {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--light-color);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .thumbnails {
+            display: flex;
+            padding: 15px;
+            gap: 10px;
+            overflow-x: auto;
+        }
+        
+        .thumbnail {
+            min-width: 80px;
+            height: 80px;
+            background: var(--gray);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+        
+        .thumbnail.active {
+            border: 3px solid var(--primary-color);
+            transform: scale(1.05);
+        }
+        
+        .product-details {
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .product-title {
+            font-size: 28px;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+        
+        .product-sku {
+            color: var(--gray-dark);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .stars {
+            color: var(--warning-color);
+        }
+        
+        .rating-count {
+            color: var(--gray-dark);
+            font-size: 14px;
+        }
+        
+        .price-section {
+            background: var(--gray-light);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+        }
+        
+        .current-price {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: var(--gray-dark);
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .discount-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--light-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .color-selector, .size-selector {
+            margin-bottom: 25px;
+        }
+        
+        .selector-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .colors, .sizes {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .color-option, .size-option {
+            padding: 10px 20px;
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--light-color);
+        }
+        
+        .color-option.active, .size-option.active {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: var(--light-color);
+        }
+        
+        .color-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--gray);
+            background: var(--light-color);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+        
+        .qty-btn:hover {
+            background: var(--secondary-color);
+            color: var(--light-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .qty-input {
+            width: 70px;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .stock-status {
+            color: var(--success-color);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .btn-primary, .btn-secondary {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: var(--light-color);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+        }
+        
+        .btn-secondary {
+            background: var(--gray-light);
+            color: var(--dark-color);
+            border: 2px solid var(--gray);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--gray);
+        }
+        
+        .product-tabs {
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+        
+        .tabs-header {
+            display: flex;
+            border-bottom: 2px solid var(--gray-light);
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 20px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--gray-dark);
+        }
+        
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+        
+        .tab-content {
+            padding: 30px;
+        }
+        
+        .tab-pane {
+            display: none;
+        }
+        
+        .tab-pane.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .specifications ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .specifications li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+        }
+        
+        .specifications li:last-child {
+            border-bottom: none;
+        }
+        
+        .spec-label {
+            min-width: 150px;
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+        
+        .review-item {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .review-item:last-child {
+            border-bottom: none;
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .reviewer-name {
+            font-weight: bold;
+            color: var(--dark-color);
+        }
+        
+        .review-date {
+            color: var(--gray-dark);
+            font-size: 14px;
+        }
+        
+        .review-text {
+            line-height: 1.6;
+            color: var(--dark-color);
+        }
+        
+        .related-products {
+            margin-top: 60px;
+        }
+        
+        .related-title {
+            margin-bottom: 30px;
+            color: var(--dark-color);
+            font-size: 24px;
+            padding-right: 15px;
+            border-right: 4px solid var(--accent-color);
+        }
+        
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .zoom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        
+        .zoom-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .zoom-close {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- حاشیه صورتی -->
+    <div class="border-top"></div>
+    <div class="border-right"></div>
+    <div class="border-bottom"></div>
+    <div class="border-left"></div>
+
+    <!-- نوار اطلاعات بالایی -->
+    <div class="info-bar">
+        <div class="container">
+            <span class="free-shipping">🚚 ارسال رایگان برای خریدهای بالای ۲۰۰ هزار تومان</span>
+            <span class="support-number">📞 پشتیبانی: ۹۱۲۲۳۴۵۶۷</span>
+        </div>
+    </div>
+
+    <!-- هدر اصلی -->
+    <header class="main-header">
+        <div class="container">
+            <button class="hamburger-btn" onclick="window.history.back()">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+
+            <div class="logo">
+                <h1><i class="fas fa-shopping-bag"></i> Tools Gallery</h1>
+            </div>
+
+            <div class="user-menu">
+                <a href="index.html" class="user-icon" title="صفحه اصلی">
+                    <i class="fas fa-home"></i>
+                </a>
+                <a href="wishlist.html" class="user-icon" title="علاقه‌مندی‌ها">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge">۳</span>
+                </a>
+                <a href="cart.html" class="user-icon" title="سبد خرید">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge">۲</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوای اصلی -->
+    <main class="container">
+        <div class="product-page">
+            <!-- مسیر ناوبری -->
+            <div class="breadcrumb">
+                <a href="index.html">خانه</a> / 
+                <a href="#categories">دسته‌بندی</a> / 
+                <a href="#">پوشاک</a> / 
+                <span>محصول نمونه ۱</span>
+            </div>
+
+            <!-- محصول -->
+            <div class="product-container">
+                <!-- گالری تصاویر -->
+                <div class="product-gallery">
+                    <div class="main-image" id="mainImage">
+                        تصویر اصلی محصول
+                        <button class="image-zoom" onclick="openZoom()">
+                            <i class="fas fa-search-plus"></i>
+                        </button>
+                    </div>
+                    <div class="thumbnails">
+                        <div class="thumbnail active" onclick="changeImage(0)">
+                            ۱
+                        </div>
+                        <div class="thumbnail" onclick="changeImage(1)">
+                            ۲
+                        </div>
+                        <div class="thumbnail" onclick="changeImage(2)">
+                            ۳
+                        </div>
+                        <div class="thumbnail" onclick="changeImage(3)">
+                            ۴
+                        </div>
+                    </div>
+                </div>
+
+                <!-- جزئیات محصول -->
+                <div class="product-details">
+                    <h1 class="product-title">محصول نمونه ۱</h1>
+                    <div class="product-sku">کد محصول: TG-PROD-001</div>
+                    
+                    <div class="product-rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <span class="rating-count">(۴۵ نظر)</span>
+                    </div>
+
+                    <div class="price-section">
+                        <div class="current-price">۱۳۹,۰۰۰ تومان</div>
+                        <div class="old-price">۲۳۰,۰۰۰ تومان</div>
+                        <div class="discount-badge">۴۰٪ تخفیف</div>
+                    </div>
+
+                    <!-- انتخاب رنگ -->
+                    <div class="color-selector">
+                        <h3 class="selector-title">
+                            <i class="fas fa-palette"></i> رنگ:
+                        </h3>
+                        <div class="colors">
+                            <button class="color-option active" onclick="selectColor(this, '#ff6b8b')">
+                                صورتی
+                                <span class="color-circle" style="background-color: #ff6b8b;"></span>
+                            </button>
+                            <button class="color-option" onclick="selectColor(this, '#6c5ce7')">
+                                آبی
+                                <span class="color-circle" style="background-color: #6c5ce7;"></span>
+                            </button>
+                            <button class="color-option" onclick="selectColor(this, '#00cec9')">
+                                فیروزه‌ای
+                                <span class="color-circle" style="background-color: #00cec9;"></span>
+                            </button>
+                            <button class="color-option" onclick="selectColor(this, '#2d3436')">
+                                مشکی
+                                <span class="color-circle" style="background-color: #2d3436;"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- انتخاب سایز -->
+                    <div class="size-selector">
+                        <h3 class="selector-title">
+                            <i class="fas fa-ruler"></i> سایز:
+                        </h3>
+                        <div class="sizes">
+                            <button class="size-option active" onclick="selectSize(this, 'S')">S</button>
+                            <button class="size-option" onclick="selectSize(this, 'M')">M</button>
+                            <button class="size-option" onclick="selectSize(this, 'L')">L</button>
+                            <button class="size-option" onclick="selectSize(this, 'XL')">XL</button>
+                        </div>
+                    </div>
+
+                    <!-- انتخاب تعداد -->
+                    <div class="quantity-selector">
+                        <h3 class="selector-title">
+                            <i class="fas fa-sort-amount-up"></i> تعداد:
+                        </h3>
+                        <div class="quantity-control">
+                            <button class="qty-btn minus" onclick="changeQuantity(-1)">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" class="qty-input" value="1" min="1" max="10" id="quantityInput">
+                            <button class="qty-btn plus" onclick="changeQuantity(1)">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="stock-status">
+                            <i class="fas fa-check-circle"></i> موجود در انبار
+                        </div>
+                    </div>
+
+                    <!-- دکمه‌های اقدام -->
+                    <div class="action-buttons">
+                        <button class="btn-primary" onclick="addToCart()">
+                            <i class="fas fa-cart-plus"></i> افزودن به سبد خرید
+                        </button>
+                        <button class="btn-secondary" onclick="addToWishlist()">
+                            <i class="far fa-heart"></i> افزودن به علاقه‌مندی‌ها
+                        </button>
+                    </div>
+
+                    <!-- اطلاعات اضافی -->
+                    <div class="product-meta">
+                        <div style="display: flex; gap: 20px; color: var(--gray-dark); font-size: 14px;">
+                            <span><i class="fas fa-shipping-fast"></i> ارسال رایگان</span>
+                            <span><i class="fas fa-shield-alt"></i> گارانتی ۱۸ ماهه</span>
+                            <span><i class="fas fa-undo"></i> بازگشت ۷ روزه</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تب‌های اطلاعات -->
+            <div class="product-tabs">
+                <div class="tabs-header">
+                    <button class="tab-btn active" onclick="switchTab('description')">توضیحات</button>
+                    <button class="tab-btn" onclick="switchTab('specifications')">مشخصات فنی</button>
+                    <button class="tab-btn" onclick="switchTab('reviews')">نظرات (۴۵)</button>
+                    <button class="tab-btn" onclick="switchTab('shipping')">ارسال و بازگشت</button>
+                </div>
+                
+                <div class="tab-content">
+                    <!-- توضیحات -->
+                    <div class="tab-pane active" id="descriptionTab">
+                        <h3>توضیحات محصول</h3>
+                        <p>این محصول نمونه با بهترین کیفیت و مواد اولیه تولید شده است. مناسب برای استفاده روزمره و دارای طراحی شیک و مدرن.</p>
+                        <p>ویژگی‌های منحصر به فرد:</p>
+                        <ul>
+                            <li>جنس مرغوب و با دوام</li>
+                            <li>طراحی ارگونومیک</li>
+                            <li>قابل شستشو</li>
+                            <li>ضد حساسیت</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- مشخصات فنی -->
+                    <div class="tab-pane" id="specificationsTab">
+                        <div class="specifications">
+                            <h3>مشخصات فنی</h3>
+                            <ul>
+                                <li>
+                                    <span class="spec-label">جنس:</span>
+                                    <span>پنبه مرغوب</span>
+                                </li>
+                                <li>
+                                    <span class="spec-label">کشور سازنده:</span>
+                                    <span>ایران</span>
+                                </li>
+                                <li>
+                                    <span class="spec-label">گارانتی:</span>
+                                    <span>۱۸ ماه</span>
+                                </li>
+                                <li>
+                                    <span class="spec-label">وزن:</span>
+                                    <span>۲۵۰ گرم</span>
+                                </li>
+                                <li>
+                                    <span class="spec-label">ابعاد:</span>
+                                    <span>۲۰ × ۳۰ × ۵ سانتی‌متر</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- نظرات -->
+                    <div class="tab-pane" id="reviewsTab">
+                        <h3>نظرات کاربران</h3>
+                        <div class="review-item">
+                            <div class="review-header">
+                                <span class="reviewer-name">کاربر نمونه ۱</span>
+                                <span class="review-date">۱۴۰۲/۰۶/۱۵</span>
+                            </div>
+                            <div class="product-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="review-text">
+                                محصول عالی، کیفیت خوبی دارد. رنگ‌بندی زیبا و دوخت تمیز.
+                            </p>
+                        </div>
+                        
+                        <div class="review-item">
+                            <div class="review-header">
+                                <span class="reviewer-name">کاربر نمونه ۲</span>
+                                <span class="review-date">۱۴۰۲/۰۶/۱۰</span>
+                            </div>
+                            <div class="product-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="review-text">
+                                عالی بود! از خریدم راضی هستم. توصیه می‌کنم.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- ارسال و بازگشت -->
+                    <div class="tab-pane" id="shippingTab">
+                        <h3>اطلاعات ارسال و بازگشت</h3>
+                        <p><strong>زمان ارسال:</strong> ۲ تا ۴ روز کاری</p>
+                        <p><strong>هزینه ارسال:</strong> رایگان برای خریدهای بالای ۲۰۰ هزار تومان</p>
+                        <p><strong>روش‌های ارسال:</strong> پست پیشتاز، تیپاکس</p>
+                        <p><strong>بازگشت کالا:</strong> تا ۷ روز پس از دریافت</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- محصولات مرتبط -->
+            <div class="related-products">
+                <h3 class="related-title">محصولات مرتبط</h3>
+                <div class="related-grid">
+                    <!-- محصول مرتبط ۱ -->
+                    <div class="product-slide" onclick="window.location.href='product.html?id=2'">
+                        <div class="product-tag">🔥 ۳۰٪ تخفیف</div>
+                        <div class="product-image">
+                            <div class="image-placeholder">محصول مرتبط ۱</div>
+                        </div>
+                        <div class="product-info">
+                            <h3>محصول مرتبط ۱</h3>
+                            <div class="price-container">
+                                <span class="old-price">۲۰۰,۰۰۰ تومان</span>
+                                <span class="current-price">۱۴۰,۰۰۰ تومان</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="add-to-cart" onclick="event.stopPropagation(); addToCart()">
+                                    <i class="fas fa-cart-plus"></i> افزودن
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- محصول مرتبط ۲ -->
+                    <div class="product-slide" onclick="window.location.href='product.html?id=3'">
+                        <div class="product-tag">🔥 ۲۵٪ تخفیف</div>
+                        <div class="product-image">
+                            <div class="image-placeholder">محصول مرتبط ۲</div>
+                        </div>
+                        <div class="product-info">
+                            <h3>محصول مرتبط ۲</h3>
+                            <div class="price-container">
+                                <span class="old-price">۱۸۰,۰۰۰ تومان</span>
+                                <span class="current-price">۱۳۵,۰۰۰ تومان</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="add-to-cart" onclick="event.stopPropagation(); addToCart()">
+                                    <i class="fas fa-cart-plus"></i> افزودن
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- مدال زوم تصویر -->
+    <div class="zoom-modal" id="zoomModal">
+        <div class="zoom-content">
+            <button class="zoom-close" onclick="closeZoom()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="main-image" style="height: 80vh; width: 80vw; font-size: 24px;">
+                تصویر بزرگ شده محصول
+            </div>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3><i class="fas fa-shopping-bag"></i> Tools Gallery</h3>
+                    <p>فروشگاه آنلاین با بهترین کیفیت و قیمت</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© ۱۴۰۳ کلیه حقوق برای Tools Gallery محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // متغیرهای محصول
+        let selectedColor = '#ff6b8b';
+        let selectedSize = 'S';
+        let quantity = 1;
+        
+        // تغییر تصویر
+        function changeImage(index) {
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const mainImage = document.getElementById('mainImage');
+            
+            // حذف کلاس active از همه
+            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+            
+            // اضافه کردن کلاس active به تصویر انتخاب شده
+            thumbnails[index].classList.add('active');
+            
+            // تغییر تصویر اصلی
+            const images = ['تصویر اصلی محصول', 'تصویر ۲ محصول', 'تصویر ۳ محصول', 'تصویر ۴ محصول'];
+            mainImage.innerHTML = `
+                ${images[index]}
+                <button class="image-zoom" onclick="openZoom()">
+                    <i class="fas fa-search-plus"></i>
+                </button>
+            `;
+        }
+        
+        // انتخاب رنگ
+        function selectColor(button, color) {
+            const colorOptions = document.querySelectorAll('.color-option');
+            colorOptions.forEach(opt => opt.classList.remove('active'));
+            button.classList.add('active');
+            selectedColor = color;
+        }
+        
+        // انتخاب سایز
+        function selectSize(button, size) {
+            const sizeOptions = document.querySelectorAll('.size-option');
+            sizeOptions.forEach(opt => opt.classList.remove('active'));
+            button.classList.add('active');
+            selectedSize = size;
+        }
+        
+        // تغییر تعداد
+        function changeQuantity(change) {
+            const input = document.getElementById('quantityInput');
+            quantity = parseInt(input.value) + change;
+            
+            if (quantity < 1) quantity = 1;
+            if (quantity > 10) quantity = 10;
+            
+            input.value = quantity;
+        }
+        
+        // افزودن به سبد خرید
+        function addToCart() {
+            alert(`✅ محصول به سبد خرید اضافه شد!\n\nرنگ: ${selectedColor}\nسایز: ${selectedSize}\nتعداد: ${quantity}`);
+            
+            // بروزرسانی بج سبد خرید
+            const cartBadge = document.querySelector('#cartBtn .badge');
+            let cartCount = parseInt(cartBadge.textContent) || 0;
+            cartBadge.textContent = cartCount + quantity;
+        }
+        
+        // افزودن به علاقه‌مندی‌ها
+        function addToWishlist() {
+            alert('❤️ محصول به علاقه‌مندی‌ها اضافه شد!');
+            
+            // بروزرسانی بج علاقه‌مندی‌ها
+            const wishlistBadge = document.querySelector('#wishlistBtn .badge');
+            let wishlistCount = parseInt(wishlistBadge.textContent) || 0;
+            wishlistBadge.textContent = wishlistCount + 1;
+        }
+        
+        // تغییر تب
+        function switchTab(tabName) {
+            // حذف کلاس active از همه تب‌ها
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            
+            // اضافه کردن کلاس active به تب انتخاب شده
+            document.querySelector(`.tab-btn[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}Tab`).classList.add('active');
+        }
+        
+        // زوم تصویر
+        function openZoom() {
+            document.getElementById('zoomModal').style.display = 'flex';
+        }
+        
+        function closeZoom() {
+            document.getElementById('zoomModal').style.display = 'none';
+        }
+        
+        // بستن زوم با کلیک بیرون
+        document.getElementById('zoomModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeZoom();
+            }
+        });
+        
+        // بستن زوم با دکمه ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('zoomModal').style.display === 'flex') {
+                closeZoom();
+            }
+        });
+        
+        // اعتبارسنجی تعداد
+        document.getElementById('quantityInput').addEventListener('change', function() {
+            let value = parseInt(this.value);
+            if (isNaN(value) || value < 1) value = 1;
+            if (value > 10) value = 10;
+            this.value = value;
+            quantity = value;
+        });
+        
+        // انیمیشن fadeIn
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
