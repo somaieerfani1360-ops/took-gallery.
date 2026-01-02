@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل مدیریت | Tools Gallery</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* استایل‌های مخصوص پنل ادمین */
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+        
+        .border-top, .border-bottom, .border-left, .border-right {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .admin-container {
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        /* صفحه لاگین */
+        .login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .login-card {
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: var(--box-shadow-lg);
+            text-align: center;
+        }
+        
+        .login-logo {
+            color: var(--secondary-color);
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .login-title {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+        
+        .login-subtitle {
+            color: var(--gray-dark);
+            margin-bottom: 30px;
+        }
+        
+        .login-form .form-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+        
+        .login-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+        
+        .login-form input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: var(--light-color);
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+        }
+        
+        /* پنل اصلی */
+        .admin-panel {
+            display: none;
+            min-height: 100vh;
+        }
+        
+        .admin-header {
+            background: linear-gradient(135deg, var(--dark-color), #636e72);
+            color: var(--light-color);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .admin-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .admin-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light-color);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* آمار */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow-lg);
+        }
+        
+        .stat-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: var(--gray-dark);
+            font-size: 14px;
+        }
+        
+        /* تب‌ها */
+        .admin-tabs {
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .tabs-header {
+            display: flex;
+            overflow-x: auto;
+            background: var(--gray-light);
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .admin-tab {
+            padding: 20px 25px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            color: var(--gray-dark);
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+        }
+        
+        .admin-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+            background: var(--light-color);
+        }
+        
+        .tab-content {
+            padding: 0;
+        }
+        
+        .tab-pane {
+            display: none;
+            padding: 30px;
+        }
+        
+        .tab-pane.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        /* جدول سفارشات */
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .orders-table th {
+            background: var(--gray-light);
+            padding: 15px;
+            text-align: right;
+            color: var(--dark-color);
+            font-weight: 600;
+            border-bottom: 2px solid var(--gray);
+        }
+        
+        .orders-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .orders-table tr:hover {
+            background: var(--gray-light);
+        }
+        
+        .order-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .status-pending {
+            background: #ffeaa7;
+            color: #e17055;
+        }
+        
+        .status-processing {
+            background: #a29bfe;
+            color: white;
+        }
+        
+        .status-shipped {
+            background: #74b9ff;
+            color: white;
+        }
+        
+        .status-delivered {
+            background: #00b894;
+            color: white;
+        }
+        
+        .status-cancelled {
+            background: #fd79a8;
+            color: white;
+        }
+        
+        .action-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: var(--transition);
+            margin-left: 5px;
+        }
+        
+        .btn-view {
+            background: var(--secondary-color);
+            color: white;
+        }
+        
+        .btn-edit {
+            background: var(--warning-color);
+            color: var(--dark-color);
+        }
+        
+        .btn-delete {
+            background: var(--danger-color);
+            color: white;
+        }
+        
+        /* بخش پیام‌ها */
+        .messages-container {
+            display: flex;
+            gap: 30px;
+        }
+        
+        @media (max-width: 992px) {
+            .messages-container {
+                flex-direction: column;
+            }
+        }
+        
+        .messages-list {
+            flex: 1;
+            background: var(--gray-light);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .message-item {
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .message-item:hover {
+            border-color: var(--secondary-color);
+        }
+        
+        .message-item.active {
+            border-color: var(--primary-color);
+            background: rgba(255, 107, 139, 0.05);
+        }
+        
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .message-sender {
+            font-weight: bold;
+            color: var(--dark-color);
+        }
+        
+        .message-time {
+            color: var(--gray-dark);
+            font-size: 12px;
+        }
+        
+        .message-preview {
+            color: var(--gray-dark);
+            font-size: 14px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .message-unread {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .message-detail {
+            flex: 2;
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .message-reply {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-light);
+        }
+        
+        .reply-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .reply-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        
+        /* جستجو */
+        .search-box-admin {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .search-box-admin input {
+            width: 100%;
+            padding: 15px 50px 15px 15px;
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .search-box-admin button {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray-dark);
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        /* فیلترها */
+        .filter-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-select {
+            padding: 10px 15px;
+            border: 1px solid var(--gray);
+            border-radius: 6px;
+            background: var(--light-color);
+            cursor: pointer;
+            min-width: 150px;
+        }
+        
+        /* چارت */
+        .chart-container {
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+            height: 400px;
+            position: relative;
+        }
+        
+        .chart-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--gray-dark);
+            font-size: 18px;
+        }
+        
+        /* ریسپانسیو */
+        @media (max-width: 768px) {
+            .admin-tabs {
+                overflow: auto;
+            }
+            
+            .orders-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            
+            .admin-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+        
+        /* انیمیشن */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stat-card, .message-item {
+            animation: fadeIn 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- حاشیه صورتی -->
+    <div class="border-top"></div>
+    <div class="border-right"></div>
+    <div class="border-bottom"></div>
+    <div class="border-left"></div>
+
+    <!-- صفحه لاگین -->
+    <div class="login-page" id="loginPage">
+        <div class="login-card">
+            <div class="login-logo">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h2 class="login-title">پنل مدیریت</h2>
+            <p class="login-subtitle">Tools Gallery</p>
+            
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="username">نام کاربری</label>
+                    <input type="text" id="username" placeholder="admin" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">رمز عبور</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+                
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> ورود به پنل
+                </button>
+            </form>
+            
+            <div style="margin-top: 20px; font-size: 12px; color: var(--gray-dark);">
+                <p>داده‌های تست: admin / admin123</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- پنل اصلی -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="container">
+            <!-- هدر -->
+            <div class="admin-header">
+                <div class="admin-info">
+                    <div class="admin-avatar">
+                        <i class="fas fa-user-cog"></i>
+                    </div>
+                    <div>
+                        <h2>پنل مدیریت Tools Gallery</h2>
+                        <p>خوش آمدید، مدیر محترم!</p>
+                    </div>
+                </div>
+                
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> خروج
+                </button>
+            </div>
+
+            <!-- آمار کلی -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: #6c5ce7;">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-number">۴۷</div>
+                    <div class="stat-label">سفارشات جدید</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: #ff6b8b;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number">۱,۲۳۴</div>
+                    <div class="stat-label">کاربران فعال</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: #00cec9;">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-number">۱۲.۵M</div>
+                    <div class="stat-label">فروش امروز</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="color: #00b894;">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="stat-number">۸۹</div>
+                    <div class="stat-label">محصولات موجود</div>
+                </div>
+            </div>
+
+            <!-- چارت (نمونه) -->
+            <div class="chart-container">
+                <div class="chart-placeholder">
+                    <i class="fas fa-chart-line" style="font-size: 48px; margin-bottom: 20px; color: var(--gray);"></i>
+                    <p>نمودار آمار فروش</p>
+                    <p style="font-size: 14px; margin-top: 10px;">در نسخه کامل با کتابخانه‌هایی مانند Chart.js پیاده‌سازی می‌شود</p>
+                </div>
+            </div>
+
+            <!-- تب‌ها -->
+            <div class="admin-tabs">
+                <div class="tabs-header">
+                    <button class="admin-tab active" onclick="switchAdminTab('orders')">
+                        <i class="fas fa-shopping-cart"></i> سفارشات
+                    </button>
+                    <button class="admin-tab" onclick="switchAdminTab('products')">
+                        <i class="fas fa-box"></i> محصولات
+                    </button>
+                    <button class="admin-tab" onclick="switchAdminTab('messages')">
+                        <i class="fas fa-comments"></i> پیام‌ها
+                    </button>
+                    <button class="admin-tab" onclick="switchAdminTab('users')">
+                        <i class="fas fa-users"></i> کاربران
+                    </button>
+                    <button class="admin-tab" onclick="switchAdminTab('settings')">
+                        <i class="fas fa-cog"></i> تنظیمات
+                    </button>
+                </div>
+                
+                <div class="tab-content">
+                    <!-- تب سفارشات -->
+                    <div class="tab-pane active" id="ordersTab">
+                        <div class="search-box-admin">
+                            <input type="text" placeholder="جستجوی سفارش با کد رهگیری..." id="orderSearch">
+                            <button>
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="filter-container">
+                            <select class="filter-select" id="orderStatusFilter">
+                                <option value="">همه وضعیت‌ها</option>
+                                <option value="pending">در انتظار پرداخت</option>
+                                <option value="processing">در حال پردازش</option>
+                                <option value="shipped">ارسال شده</option>
+                                <option value="delivered">تحویل شده</option>
+                            </select>
+                            
+                            <select class="filter-select" id="orderDateFilter">
+                                <option value="">همه تاریخ‌ها</option>
+                                <option value="today">امروز</option>
+                                <option value="week">هفته جاری</option>
+                                <option value="month">ماه جاری</option>
+                            </select>
+                        </div>
+                        
+                        <div style="overflow-x: auto;">
+                            <table class="orders-table">
+                                <thead>
+                                    <tr>
+                                        <th>کد سفارش</th>
+                                        <th>مشتری</th>
+                                        <th>تاریخ</th>
+                                        <th>مبلغ</th>
+                                        <th>وضعیت</th>
+                                        <th>عملیات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>TG-ORD-1689345678</td>
+                                        <td>علی محمدی</td>
+                                        <td>۱۴۰۲/۰۶/۱۵</td>
+                                        <td>۵۲۷,۰۰۰ تومان</td>
+                                        <td>
+                                            <span class="order-status status-pending">در انتظار پرداخت</span>
+                                        </td>
+                                        <td>
+                                            <button class="action-btn btn-view" onclick="viewOrder('TG-ORD-1689345678')">
+                                                مشاهده
+                                            </button>
+                                            <button class="action-btn btn-edit" onclick="editOrder('TG-ORD-1689345678')">
+                                                ویرایش
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>TG-ORD-1689345123</td>
+                                        <td>فاطمه کریمی</td>
+                                        <td>۱۴۰۲/۰۶/۱۴</td>
+                                        <td>۸۹۰,۰۰۰ تومان</td>
+                                        <td>
+                                            <span class="order-status status-processing">در حال پردازش</span>
+                                        </td>
+                                        <td>
+                                            <button class="action-btn btn-view" onclick="viewOrder('TG-ORD-1689345123')">
+                                                مشاهده
+                                            </button>
+                                            <button class="action-btn btn-edit" onclick="editOrder('TG-ORD-1689345123')">
+                                                ویرایش
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>TG-ORD-1689344987</td>
+                                        <td>محمد رضایی</td>
+                                        <td>۱۴۰۲/۰۶/۱۳</td>
+                                        <td>۳۴۰,۰۰۰ تومان</td>
+                                        <td>
+                                            <span class="order-status status-delivered">تحویل شده</span>
+                                        </td>
+                                        <td>
+                                            <button class="action-btn btn-view" onclick="viewOrder('TG-ORD-1689344987')">
+                                                مشاهده
+                                            </button>
+                                            <button class="action-btn btn-edit" onclick="editOrder('TG-ORD-1689344987')">
+                                                ویرایش
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- تب محصولات -->
+                    <div class="tab-pane" id="productsTab">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3>مدیریت محصولات</h3>
+                            <button class="btn-primary" onclick="addNewProduct()" style="padding: 10px 20px;">
+                                <i class="fas fa-plus"></i> افزودن محصول جدید
+                            </button>
+                        </div>
+                        
+                        <div style="overflow-x: auto;">
+                            <table class="orders-table">
+                                <thead>
+                                    <tr>
+                                        <th>تصویر</th>
+                                        <th>نام محصول</th>
+                                        <th>دسته‌بندی</th>
+                                        <th>قیمت</th>
+                                        <th>موجودی</th>
+                                        <th>وضعیت</th>
+                                        <th>عملیات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div style="width: 50px; height: 50px; background: var(--gray); border-radius: 4px;"></div>
+                                        </td>
+                                        <td>محصول نمونه ۱</td>
+                                        <td>پوشاک</td>
+                                        <td>۱۳۹,۰۰۰ تومان</td>
+                                        <td>۱۵ عدد</td>
+                                        <td>
+                                            <span style="color: var(--success-color);">●</span> فعال
+                                        </td>
+                                        <td>
+                                            <button class="action-btn btn-view">مشاهده</button>
+                                            <button class="action-btn btn-edit">ویرایش</button>
+                                            <button class="action-btn btn-delete">حذف</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- تب پیام‌ها -->
+                    <div class="tab-pane" id="messagesTab">
+                        <div class="messages-container">
+                            <!-- لیست پیام‌ها -->
+                            <div class="messages-list">
+                                <div class="message-item active" onclick="selectMessage(1)">
+                                    <div class="message-header">
+                                        <div>
+                                            <span class="message-unread"></span>
+                                            <span class="message-sender">علی محمدی</span>
+                                        </div>
+                                        <span class="message-time">۱۹:۳۰</span>
+                                    </div>
+                                    <div class="message-preview">
+                                        چطور می‌توانم سفارشم را پیگیری کنم؟
+                                    </div>
+                                </div>
+                                
+                                <div class="message-item" onclick="selectMessage(2)">
+                                    <div class="message-header">
+                                        <div>
+                                            <span class="message-unread"></span>
+                                            <span class="message-sender">فاطمه کریمی</span>
+                                        </div>
+                                        <span class="message-time">۱۸:۱۵</span>
+                                    </div>
+                                    <div class="message-preview">
+                                        محصولات جدید کی اضافه می‌شوند؟
+                                    </div>
+                                </div>
+                                
+                                <div class="message-item" onclick="selectMessage(3)">
+                                    <div class="message-header">
+                                        <div>
+                                            <span class="message-sender">محمد رضایی</span>
+                                        </div>
+                                        <span class="message-time">۱۷:۴۵</span>
+                                    </div>
+                                    <div class="message-preview">
+                                        از خریدم راضی هستم، ممنون
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- جزئیات پیام -->
+                            <div class="message-detail">
+                                <h3>پیام از: علی محمدی</h3>
+                                <p class="message-time" style="margin-bottom: 20px;">زمان: ۱۹:۳۰ | ۱۴۰۲/۰۶/۱۵</p>
+                                
+                                <div style="background: var(--gray-light); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                                    <p style="line-height: 1.6;">
+                                        سلام، من دیروز سفارش ثبت کردم با کد TG-ORD-1689345678. چطور می‌توانم وضعیت سفارشم را پیگیری کنم؟ لطفاً راهنمایی کنید.
+                                    </p>
+                                </div>
+                                
+                                <div class="message-reply">
+                                    <h4>پاسخ به کاربر</h4>
+                                    <textarea class="reply-input" placeholder="پاسخ خود را بنویسید..."></textarea>
+                                    <div class="reply-buttons">
+                                        <button class="action-btn btn-edit" onclick="markAsRead()">
+                                            <i class="far fa-check-circle"></i> علامت به عنوان خوانده شده
+                                        </button>
+                                        <button class="action-btn btn-view" onclick="sendReply()">
+                                            <i class="fas fa-paper-plane"></i> ارسال پاسخ
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- تب کاربران -->
+                    <div class="tab-pane" id="usersTab">
+                        <h3>مدیریت کاربران</h3>
+                        <p>این بخش در نسخه کامل پیاده‌سازی می‌شود.</p>
+                    </div>
+                    
+                    <!-- تب تنظیمات -->
+                    <div class="tab-pane" id="settingsTab">
+                        <h3>تنظیمات سیستم</h3>
+                        <p>این بخش در نسخه کامل پیاده‌سازی می‌شود.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // لاگین
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // اعتبارسنجی ساده
+            if (username === 'admin' && password === 'admin123') {
+                // پنهان کردن صفحه لاگین
+                document.getElementById('loginPage').style.display = 'none';
+                
+                // نمایش پنل اصلی
+                document.getElementById('adminPanel').style.display = 'block';
+                
+                // ذخیره در localStorage
+                localStorage.setItem('adminLoggedIn', 'true');
+                
+                // نمایش پیام خوش‌آمد
+                alert('✅ ورود موفق! به پنل مدیریت خوش آمدید.');
+            } else {
+                alert('❌ نام کاربری یا رمز عبور اشتباه است!\n\nداده‌های تست: admin / admin123');
+            }
+        });
+        
+        // بررسی لاگین قبلی
+        if (localStorage.getItem('adminLoggedIn') === 'true') {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+        }
+        
+        // خروج
+        function logout() {
+            if (confirm('آیا از خروج از پنل مدیریت مطمئن هستید؟')) {
+                localStorage.removeItem('adminLoggedIn');
+                location.reload();
+            }
+        }
+        
+        // تغییر تب‌ها
+        function switchAdminTab(tabName) {
+            // حذف کلاس active از همه تب‌ها
+            document.querySelectorAll('.admin-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            
+            // اضافه کردن کلاس active به تب انتخاب شده
+            document.querySelector(`.admin-tab[onclick="switchAdminTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}Tab`).classList.add('active');
+        }
+        
+        // مشاهده سفارش
+        function viewOrder(orderCode) {
+            alert(`مشاهده سفارش ${orderCode}\n\nاین بخش در نسخه کامل پیاده‌سازی می‌شود.`);
+        }
+        
+        // ویرایش سفارش
+        function editOrder(orderCode) {
+            alert(`ویرایش سفارش ${orderCode}\n\nاین بخش در نسخه کامل پیاده‌سازی می‌شود.`);
+        }
+        
+        // افزودن محصول جدید
+        function addNewProduct() {
+            alert('افزودن محصول جدید\n\nاین بخش در نسخه کامل پیاده‌سازی می‌شود.');
+        }
+        
+        // انتخاب پیام
+        function selectMessage(messageId) {
+            // حذف کلاس active از همه پیام‌ها
+            document.querySelectorAll('.message-item').forEach(item => item.classList.remove('active'));
+            
+            // اضافه کردن کلاس active به پیام انتخاب شده
+            event.target.closest('.message-item').classList.add('active');
+            
+            // حذف نشانه خوانده نشده
+            const unreadBadge = event.target.closest('.message-item').querySelector('.message-unread');
+            if (unreadBadge) {
+                unreadBadge.style.display = 'none';
+            }
+        }
+        
+        // ارسال پاسخ
+        function sendReply() {
+            const replyInput = document.querySelector('.reply-input');
+            if (replyInput.value.trim()) {
+                alert('✅ پاسخ ارسال شد!');
+                replyInput.value = '';
+            } else {
+                alert('لطفاً متن پاسخ را وارد کنید.');
+            }
+        }
+        
+        // علامت به عنوان خوانده شده
+        function markAsRead() {
+            const unreadBadge = document.querySelector('.message-item.active .message-unread');
+            if (unreadBadge) {
+                unreadBadge.style.display = 'none';
+                alert('پیام به عنوان خوانده شده علامت‌گذاری شد.');
+            }
+        }
+        
+        // جستجوی سفارش
+        document.getElementById('orderSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const query = this.value.trim();
+                if (query) {
+                    alert(`جستجوی سفارش: ${query}\n\nنتایج جستجو نمایش داده می‌شوند.`);
+                }
+            }
+        });
+        
+        // فیلتر سفارشات
+        document.getElementById('orderStatusFilter').addEventListener('change', function() {
+            if (this.value) {
+                alert(`فیلتر سفارشات بر اساس وضعیت: ${this.value}`);
+            }
+        });
+        
+        // فیلتر تاریخ
+        document.getElementById('orderDateFilter').addEventListener('change', function() {
+            if (this.value) {
+                alert(`فیلتر سفارشات بر اساس تاریخ: ${this.value}`);
+            }
+        });
+        
+        // انیمیشن fadeIn
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // محافظت از دسترسی مستقیم
+        if (window.location.pathname.includes('admin.html') && localStorage.getItem('adminLoggedIn') !== 'true') {
+            // اگر کاربر مستقیم وارد شود و لاگین نکرده باشد، به صفحه اصلی هدایت می‌شود
+            setTimeout(() => {
+                if (document.getElementById('adminPanel').style.display !== 'block') {
+                    alert('⚠️ ابتدا باید وارد پنل مدیریت شوید.');
+                    window.location.href = 'index.html';
+                }
+            }, 100);
+        }
+    </script>
+</body>
+</html>
