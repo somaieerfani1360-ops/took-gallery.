@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>علاقه‌مندی‌ها | Tools Gallery</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .wishlist-page {
+            padding: 40px 0;
+            min-height: 60vh;
+        }
+        
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            color: var(--dark-color);
+        }
+        
+        .page-title i {
+            color: var(--primary-color);
+            font-size: 32px;
+        }
+        
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .wishlist-item {
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .wishlist-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow-lg);
+        }
+        
+        .wishlist-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--accent-color), #00b894);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-color);
+            font-size: 16px;
+            position: relative;
+        }
+        
+        .wishlist-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-color);
+            color: var(--light-color);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .remove-wishlist {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--danger-color);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .remove-wishlist:hover {
+            background: var(--danger-color);
+            color: var(--light-color);
+        }
+        
+        .wishlist-info {
+            padding: 20px;
+        }
+        
+        .wishlist-info h4 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+            font-size: 18px;
+        }
+        
+        .wishlist-description {
+            color: var(--gray-dark);
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .wishlist-price {
+            color: var(--primary-color);
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .wishlist-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .add-to-cart-btn {
+            flex: 1;
+            padding: 10px;
+            background: var(--secondary-color);
+            color: var(--light-color);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        
+        .add-to-cart-btn:hover {
+            background: var(--primary-color);
+        }
+        
+        .view-product-btn {
+            flex: 1;
+            padding: 10px;
+            background: var(--gray-light);
+            color: var(--dark-color);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        
+        .view-product-btn:hover {
+            background: var(--gray);
+        }
+        
+        .empty-wishlist {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .empty-wishlist i {
+            font-size: 80px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .empty-wishlist h3 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .empty-wishlist p {
+            color: var(--gray-dark);
+            margin-bottom: 25px;
+        }
+        
+        .browse-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--secondary-color);
+            color: var(--light-color);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .browse-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .wishlist-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            color: var(--gray-dark);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- حاشیه صورتی -->
+    <div class="border-top"></div>
+    <div class="border-right"></div>
+    <div class="border-bottom"></div>
+    <div class="border-left"></div>
+
+    <!-- نوار اطلاعات بالایی -->
+    <div class="info-bar">
+        <div class="container">
+            <span class="free-shipping">🚚 ارسال رایگان برای خریدهای بالای ۲۰۰ هزار تومان</span>
+            <span class="support-number">📞 پشتیبانی: ۹۱۲۲۳۴۵۶۷</span>
+        </div>
+    </div>
+
+    <!-- هدر اصلی -->
+    <header class="main-header">
+        <div class="container">
+            <button class="hamburger-btn" onclick="window.history.back()">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+
+            <div class="logo">
+                <h1><i class="fas fa-shopping-bag"></i> Tools Gallery</h1>
+            </div>
+
+            <div class="user-menu">
+                <a href="index.html" class="user-icon" title="صفحه اصلی">
+                    <i class="fas fa-home"></i>
+                </a>
+                <a href="wishlist.html" class="user-icon" title="علاقه‌مندی‌ها">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge">۳</span>
+                </a>
+                <a href="cart.html" class="user-icon" title="سبد خرید">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge">۲</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوای اصلی -->
+    <main class="container">
+        <div class="wishlist-page">
+            <div class="page-title">
+                <i class="fas fa-heart"></i>
+                <h2>لیست علاقه‌مندی‌های شما</h2>
+            </div>
+
+            <!-- آمار -->
+            <div class="wishlist-stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalItems">۳</div>
+                    <div class="stat-label">تعداد محصولات</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalPrice">۵۴۷,۰۰۰</div>
+                    <div class="stat-label">تومان</div>
+                </div>
+                <div class="stat-item">
+                    <button class="browse-btn" onclick="window.location.href='index.html'">
+                        <i class="fas fa-plus"></i> افزودن محصول جدید
+                    </button>
+                </div>
+            </div>
+
+            <!-- علاقه‌مندی‌ها -->
+            <div class="wishlist-grid" id="wishlistGrid">
+                <!-- محصول ۱ -->
+                <div class="wishlist-item">
+                    <div class="wishlist-image">
+                        <div class="wishlist-badge">پرفروش</div>
+                        <button class="remove-wishlist" onclick="removeFromWishlist(this)">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        تصویر محصول ۱
+                    </div>
+                    <div class="wishlist-info">
+                        <h4>محصول نمونه ۱</h4>
+                        <p class="wishlist-description">توضیحات کوتاه محصول نمونه ۱ که بسیار محبوب است</p>
+                        <div class="wishlist-price">۱۳۹,۰۰۰ تومان</div>
+                        <div class="wishlist-actions">
+                            <button class="add-to-cart-btn" onclick="addToCartFromWishlist(this)">
+                                <i class="fas fa-cart-plus"></i> افزودن به سبد
+                            </button>
+                            <button class="view-product-btn" onclick="window.location.href='product.html?id=1'">
+                                <i class="fas fa-eye"></i> مشاهده
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- محصول ۲ -->
+                <div class="wishlist-item">
+                    <div class="wishlist-image">
+                        <div class="wishlist-badge">جدید</div>
+                        <button class="remove-wishlist" onclick="removeFromWishlist(this)">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        تصویر محصول ۲
+                    </div>
+                    <div class="wishlist-info">
+                        <h4>محصول نمونه ۲</h4>
+                        <p class="wishlist-description">توضیحات کوتاه محصول نمونه ۲ با کیفیت عالی</p>
+                        <div class="wishlist-price">۲۱۹,۰۰۰ تومان</div>
+                        <div class="wishlist-actions">
+                            <button class="add-to-cart-btn" onclick="addToCartFromWishlist(this)">
+                                <i class="fas fa-cart-plus"></i> افزودن به سبد
+                            </button>
+                            <button class="view-product-btn" onclick="window.location.href='product.html?id=2'">
+                                <i class="fas fa-eye"></i> مشاهده
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- محصول ۳ -->
+                <div class="wishlist-item">
+                    <div class="wishlist-image">
+                        <div class="wishlist-badge">تخفیف ویژه</div>
+                        <button class="remove-wishlist" onclick="removeFromWishlist(this)">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        تصویر محصول ۳
+                    </div>
+                    <div class="wishlist-info">
+                        <h4>محصول نمونه ۳</h4>
+                        <p class="wishlist-description">توضیحات کوتاه محصول نمونه ۳ با گارانتی طلایی</p>
+                        <div class="wishlist-price">۱۷۹,۰۰۰ تومان</div>
+                        <div class="wishlist-actions">
+                            <button class="add-to-cart-btn" onclick="addToCartFromWishlist(this)">
+                                <i class="fas fa-cart-plus"></i> افزودن به سبد
+                            </button>
+                            <button class="view-product-btn" onclick="window.location.href='product.html?id=3'">
+                                <i class="fas fa-eye"></i> مشاهده
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- علاقه‌مندی‌های خالی -->
+            <!-- <div class="empty-wishlist">
+                <i class="fas fa-heart"></i>
+                <h3>لیست علاقه‌مندی‌های شما خالی است</h3>
+                <p>محصولات مورد علاقه خود را با کلیک روی قلب ذخیره کنید</p>
+                <a href="index.html" class="browse-btn">
+                    <i class="fas fa-shopping-bag"></i> مرور محصولات
+                </a>
+            </div> -->
+        </div>
+    </main>
+
+    <!-- فوتر -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3><i class="fas fa-shopping-bag"></i> Tools Gallery</h3>
+                    <p>فروشگاه آنلاین با بهترین کیفیت و قیمت</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© ۱۴۰۳ کلیه حقوق برای Tools Gallery محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // مدیریت علاقه‌مندی‌ها
+        function removeFromWishlist(button) {
+            if (confirm('آیا از حذف این محصول از علاقه‌مندی‌ها مطمئن هستید؟')) {
+                const wishlistItem = button.closest('.wishlist-item');
+                wishlistItem.style.animation = 'fadeOut 0.3s ease';
+                
+                setTimeout(() => {
+                    wishlistItem.remove();
+                    updateWishlistStats();
+                    checkEmptyWishlist();
+                }, 300);
+            }
+        }
+        
+        function addToCartFromWishlist(button) {
+            const wishlistItem = button.closest('.wishlist-item');
+            const productName = wishlistItem.querySelector('h4').textContent;
+            
+            // نمایش پیام موفقیت
+            alert(`محصول "${productName}" به سبد خرید اضافه شد!`);
+            
+            // بروزرسانی تعداد سبد خرید
+            const cartBadge = document.querySelector('#cartBtn .badge');
+            let cartCount = parseInt(cartBadge.textContent) || 0;
+            cartBadge.textContent = cartCount + 1;
+            
+            // حذف از علاقه‌مندی‌ها
+            removeFromWishlist(button);
+        }
+        
+        function updateWishlistStats() {
+            const items = document.querySelectorAll('.wishlist-item');
+            let totalPrice = 0;
+            
+            items.forEach(item => {
+                const priceText = item.querySelector('.wishlist-price').textContent;
+                const price = parseInt(priceText.replace(/[^0-9]/g, ''));
+                totalPrice += price;
+            });
+            
+            document.getElementById('totalItems').textContent = items.length;
+            document.getElementById('totalPrice').textContent = totalPrice.toLocaleString();
+            
+            // بروزرسانی بج علاقه‌مندی‌ها
+            document.querySelector('#wishlistBtn .badge').textContent = items.length;
+        }
+        
+        function checkEmptyWishlist() {
+            const items = document.querySelectorAll('.wishlist-item');
+            const wishlistGrid = document.getElementById('wishlistGrid');
+            
+            if (items.length === 0 && wishlistGrid) {
+                wishlistGrid.innerHTML = `
+                    <div class="empty-wishlist">
+                        <i class="fas fa-heart"></i>
+                        <h3>لیست علاقه‌مندی‌های شما خالی است</h3>
+                        <p>محصولات مورد علاقه خود را با کلیک روی قلب ذخیره کنید</p>
+                        <a href="index.html" class="browse-btn">
+                            <i class="fas fa-shopping-bag"></i> مرور محصولات
+                        </a>
+                    </div>
+                `;
+                
+                // مخفی کردن آمار
+                document.querySelector('.wishlist-stats').style.display = 'none';
+            }
+        }
+        
+        // انیمیشن fadeOut
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                from {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                to {
+                    opacity: 0;
+                    transform: scale(0.8);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // بارگذاری اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            updateWishlistStats();
+        });
+    </script>
+</body>
+  </html>
